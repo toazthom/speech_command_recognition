@@ -1,13 +1,17 @@
 # Speech Command Recognition
 
 ## Overview
-This repository contains machine learning models for speech command recognition using different approaches, including logistic regression and convolutional neural networks (CNNs). The models are trained and evaluated on audio datasets to classify spoken commands accurately.
+This repository contains machine learning models for speech command recognition using different approaches, including logistic regression, SVM, and convolutional neural networks (CNNs). The models are trained and evaluated on audio datasets to classify spoken commands accurately.
 
 ## Repository Structure
 
-- **`LogisticRegressionModel.ipynb`** - A baseline logistic regression model for speech command recognition.
-- **`TunedLogisticRegressionModel.ipynb`** - An optimized logistic regression model with hyperparameter tuning.
-- **`convolutionalNeuralNetworkModel.ipynb`** - A deep learning model using CNNs to improve recognition accuracy.
+- **`LogisticRegressionModel.ipynb`** – Baseline model using logistic regression.
+- **`TunedLogisticRegressionModel.ipynb`** – Tuned logistic regression model with hyperparameter optimization and SMOTE-based class balancing.
+- **`convolutionalNeuralNetworkModel.ipynb`** – Convolutional Neural Network (CNN) model for improved accuracy.
+- **`SupportVectorMachineModel.ipynb`** – SVM model with RBF kernel, hyperparameter tuning via grid search.
+- **`/data/`** – Preprocessed audio data (not included in repo; see usage instructions).
+- **`SpeechRecognitionLongPaper.pdf`** – Final research paper describing the project.
+
 
 ## Requirements
 To run the models, you need the following dependencies:
@@ -37,21 +41,34 @@ jupyter notebook convolutionalNeuralNetworkModel.ipynb
 ```
 
 ## Model Details
+
 ### 1. Logistic Regression Model
-- Extracts features from speech audio.
-- Uses a simple logistic regression classifier.
-- Provides a baseline accuracy for speech command recognition.
+- Uses MFCC features extracted from speech audio as input.
+- Implements a basic logistic regression classifier using Scikit-learn.
+- Serves as a baseline model for comparison with more complex methods.
+- Achieved ~61% accuracy without tuning or feature reduction.
 
 ### 2. Tuned Logistic Regression Model
-- Implements hyperparameter tuning.
-- Improves performance over the baseline logistic regression model.
+- Adds preprocessing: feature scaling with `StandardScaler` and class balancing with SMOTE.
+- Uses `RandomizedSearchCV` for hyperparameter tuning (solver, penalty, regularization strength).
+- Achieved a modest accuracy improvement (~65%) and better class prediction balance.
+- Performance was slightly improved with PCA feature reduction.
 
 ### 3. Convolutional Neural Network (CNN) Model
-- Uses a deep learning approach.
-- Extracts features from spectrograms of audio commands.
-- Achieves better performance compared to logistic regression.
+- Treats MFCC arrays as 2D input for convolutional processing.
+- Composed of convolutional layers, ReLU activations, a dense layer, and softmax output.
+- Trained using the Adam optimizer and sparse categorical cross-entropy loss.
+- Achieved 83% accuracy on raw MFCCs and 88% accuracy with PCA-applied features.
+- Showed the largest performance boost from dimensionality reduction.
+
+### 4. Support Vector Machine (SVM) Model
+- Uses RBF (Radial Basis Function) kernel to capture non-linear relationships in MFCC data.
+- Preprocessed using scaling and optional PCA.
+- Tuned using `GridSearchCV` over `C` and `gamma` values.
+- Achieved 88% accuracy both before and after PCA.
+- Demonstrated strong generalization and consistent performance across all evaluated metrics.
 
 ## Results
-The CNN model generally outperforms the logistic regression models in recognizing speech commands due to its ability to capture complex patterns in audio data.
+The CNN and SVM models generally outperforms the logistic regression models in recognizing speech commands due to their abilities to capture complex patterns in audio data. Use of PCA reduction helped the logistic regression and CNN models, but not the SVM model.
 
 
