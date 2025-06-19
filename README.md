@@ -9,7 +9,6 @@ This repository contains machine learning models for speech command recognition 
 - **`TunedLogisticRegressionModel.ipynb`** – Tuned logistic regression model with hyperparameter optimization and SMOTE-based class balancing.
 - **`convolutionalNeuralNetworkModel.ipynb`** – Convolutional Neural Network (CNN) model for improved accuracy.
 - **`SupportVectorMachineModel.ipynb`** – SVM model with RBF kernel, hyperparameter tuning via grid search.
-- **`/data/`** – Preprocessed audio data (not included in repo; see usage instructions).
 - **`SpeechRecognitionLongPaper.pdf`** – Final research paper describing the project.
 
 
